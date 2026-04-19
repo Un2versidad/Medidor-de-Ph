@@ -1,0 +1,78 @@
+<!--
+    HydroLabs
+    Dashboard de Calidad del Agua — Panamá
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HydroLabs: monitoreo en tiempo real de potabilidad y calidad del agua en Panamá (pH, turbidez y TDS).">
+    <title>HydroLabs | Monitoreo de Calidad del Agua — Panamá</title>
+        <script>
+        (function redirectToLandingByDefault() {
+            const query = new URLSearchParams(window.location.search);
+            if (!query.has('dashboard')) {
+                window.location.replace('landing.html');
+            }
+        }());
+        </script>
+    <link rel="icon" type="image/svg+xml" href="img/favicon-hydrolabs.svg">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+    <link rel="alternate icon" type="image/png" href="img/favicon.png">
+    <link rel="apple-touch-icon" href="img/favicon.png">
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                colors: {
+                    border: 'hsl(var(--border))',
+                    input: 'hsl(var(--input))',
+                    ring: 'hsl(var(--ring))',
+                    background: 'hsl(var(--background))',
+                    foreground: 'hsl(var(--foreground))',
+                    primary: { DEFAULT: 'hsl(var(--primary))', foreground: 'hsl(var(--primary-foreground))' },
+                    secondary: { DEFAULT: 'hsl(var(--secondary))', foreground: 'hsl(var(--secondary-foreground))' },
+                    muted: { DEFAULT: 'hsl(var(--muted))', foreground: 'hsl(var(--muted-foreground))' },
+                    accent: { DEFAULT: 'hsl(var(--accent))', foreground: 'hsl(var(--accent-foreground))' },
+                    destructive: { DEFAULT: 'hsl(var(--destructive))', foreground: 'hsl(var(--destructive-foreground))' },
+                    card: { DEFAULT: 'hsl(var(--card))', foreground: 'hsl(var(--card-foreground))' },
+                },
+                borderRadius: {
+                    lg: 'var(--radius)',
+                    md: 'calc(var(--radius) - 2px)',
+                    sm: 'calc(var(--radius) - 4px)',
+                },
+                fontFamily: {
+                    sans: ['"Open Sans"', 'system-ui', 'sans-serif'],
+                    mono: ['"Roboto Mono"', '"Courier New"', 'monospace'],
+                },
+            },
+        },
+    };
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="libs/socket.io.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/domain.js" defer></script>
+    <script src="js/api.js" defer></script>
+    <script src="js/charts.js" defer></script>
+    <script src="js/ui-shell.js" defer></script>
+    <script src="js/chatbot.js" defer></script>
+    <script src="js/reports.js" defer></script>
+    <script src="app.js" defer></script>
+</head>
+<body class="min-h-screen bg-background text-foreground font-sans">
+    <div id="app-root"></div>
+</body>
+</html>

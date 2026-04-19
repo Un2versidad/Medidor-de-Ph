@@ -1,0 +1,292 @@
+<!--
+    HydroLabs
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HydroLabs: documentación de hardware para monitoreo de calidad del agua (pH, turbidez y TDS) con Arduino UNO Q.">
+    <title>HydroLabs | Componentes del Sistema</title>
+    <link rel="icon" type="image/svg+xml" href="img/favicon-hydrolabs.svg">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+    <link rel="alternate icon" type="image/png" href="img/favicon.png">
+    <link rel="apple-touch-icon" href="img/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                colors: {
+                    border: 'hsl(var(--border))',
+                    input: 'hsl(var(--input))',
+                    ring: 'hsl(var(--ring))',
+                    background: 'hsl(var(--background))',
+                    foreground: 'hsl(var(--foreground))',
+                    primary: { DEFAULT: 'hsl(var(--primary))', foreground: 'hsl(var(--primary-foreground))' },
+                    secondary: { DEFAULT: 'hsl(var(--secondary))', foreground: 'hsl(var(--secondary-foreground))' },
+                    muted: { DEFAULT: 'hsl(var(--muted))', foreground: 'hsl(var(--muted-foreground))' },
+                    accent: { DEFAULT: 'hsl(var(--accent))', foreground: 'hsl(var(--accent-foreground))' },
+                    card: { DEFAULT: 'hsl(var(--card))', foreground: 'hsl(var(--card-foreground))' },
+                },
+                borderRadius: {
+                    lg: 'var(--radius)',
+                    md: 'calc(var(--radius) - 2px)',
+                    sm: 'calc(var(--radius) - 4px)',
+                },
+                fontFamily: {
+                    sans: ['"Open Sans"', 'system-ui', 'sans-serif'],
+                    mono: ['"Roboto Mono"', '"Courier New"', 'monospace'],
+                },
+            },
+        },
+    };
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/theme.js"></script>
+</head>
+<body class="min-h-screen bg-background text-foreground font-sans">
+    <!-- Encabezado -->
+    <header class="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="droplet" class="w-8 h-8 text-primary"></i>
+                    <div>
+                        <h1 class="text-lg font-bold text-foreground">Componentes del Sistema</h1>
+                        <p class="text-xs text-muted-foreground hidden sm:block">Sensores de Hardware</p>
+                    </div>
+                </div>
+                <nav class="flex items-center gap-2 sm:gap-4">
+                    <a href="landing.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                        Inicio
+                    </a>
+                    <a href="components.html" class="text-sm font-medium text-primary hover:text-primary/80 transition-colors">
+                        Componentes
+                    </a>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+                        <i id="theme-icon-sun" data-lucide="sun" class="w-5 h-5"></i>
+                        <i id="theme-icon-moon" data-lucide="moon" class="w-5 h-5 hidden"></i>
+                    </button>
+                    <a href="index.html?dashboard=1" class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-colors">
+                        <i data-lucide="gauge" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Dashboard</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="py-12 sm:py-16 lg:py-20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                <!-- Encabezado de página -->
+                <div class="text-center mb-12">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-accent/50 text-accent-foreground rounded-full text-sm font-medium mb-6">
+                        <i data-lucide="cpu" class="w-4 h-4"></i>
+                        <span>Documentación Técnica</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                        Componentes del Sistema
+                    </h2>
+                    <p class="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+                        Sensores para operación diaria en piscinas, granjas, pozos y tanques. Cada componente está integrado para lectura continua, calibración visual y guardado intencional de datos.
+                    </p>
+                </div>
+
+                <!-- Cuadrícula de tarjetas de sensores -->
+                <div id="sensor-cards-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Tarjeta Arduino UNO Q -->
+                    <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="p-3 bg-primary/10 rounded-lg">
+                                <i data-lucide="cpu" class="w-6 h-6 text-primary"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-foreground mb-1">Arduino UNO Q + LED Matrix + LCD I2C</h3>
+                                <p class="text-sm text-muted-foreground">Controlador principal del sistema</p>
+                            </div>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Módulo que coordina la captura en sitio, la vista previa continua de sensores y el feedback visual de estado del agua.
+                        </p>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between py-2 border-b border-border">
+                                <span class="text-sm font-medium text-foreground">Lectura activa</span>
+                                <span class="text-sm text-muted-foreground font-mono">Por comando "Tomar Lectura"</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-border">
+                                <span class="text-sm font-medium text-foreground">Vista previa</span>
+                                <span class="text-sm text-muted-foreground font-mono">Streaming local continuo</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-border">
+                                <span class="text-sm font-medium text-foreground">Feedback visual</span>
+                                <span class="text-sm text-muted-foreground font-mono">LED Matrix + LCD 16x2 + LED de estado</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2">
+                                <span class="text-sm font-medium text-foreground">Integración</span>
+                                <span class="text-sm text-muted-foreground">Bridge con dashboard y backend</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta medidor TDS -->
+                    <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="p-3 bg-primary/10 rounded-lg">
+                                <i data-lucide="beaker" class="w-6 h-6 text-primary"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-foreground mb-1">TDS Meter</h3>
+                                <p class="text-sm text-muted-foreground">Keyestudio TDS Meter</p>
+                            </div>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Medidor de sólidos disueltos totales (TDS) que cuantifica la concentración de sustancias disueltas en el agua. Esencial para evaluar la pureza y calidad del agua potable.
+                        </p>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between py-2 border-b border-border">
+                                <span class="text-sm font-medium text-foreground">Rango de Medición</span>
+                                <span class="text-sm text-muted-foreground font-mono">0 PPM a 1000 PPM</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-border">
+                                <span class="text-sm font-medium text-foreground">Precisión</span>
+                                <span class="text-sm text-muted-foreground">±10% F.S.</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-border">
+                                <span class="text-sm font-medium text-foreground">Voltaje de Operación</span>
+                                <span class="text-sm text-muted-foreground font-mono">3.3V - 5.5V</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2">
+                                <span class="text-sm font-medium text-foreground">Salida</span>
+                                <span class="text-sm text-muted-foreground">Analógica 0-2.3V</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta sensor de turbidez -->
+                    <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="p-3 bg-primary/10 rounded-lg">
+                                <i data-lucide="eye" class="w-6 h-6 text-primary"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-foreground mb-1">Turbidity Sensor</h3>
+                                <p class="text-sm text-muted-foreground">Sensor de Turbidez</p>
+                            </div>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Sensor óptico que mide la turbidez del agua detectando partículas suspendidas. La turbidez es un indicador clave de la claridad del agua y posible contaminación.
+                        </p>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between py-2 border-b border-border">
+                                <span class="text-sm font-medium text-foreground">Rango de Medición</span>
+                                <span class="text-sm text-muted-foreground font-mono">0 NTU a 1000 NTU</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-border">
+                                <span class="text-sm font-medium text-foreground">Voltaje de Operación</span>
+                                <span class="text-sm text-muted-foreground font-mono">5V DC</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-border">
+                                <span class="text-sm font-medium text-foreground">Salida</span>
+                                <span class="text-sm text-muted-foreground">Analógica 0-4.5V</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2">
+                                <span class="text-sm font-medium text-foreground">Tiempo de Respuesta</span>
+                                <span class="text-sm text-muted-foreground">&lt; 500ms</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta sensor de pH -->
+                    <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="p-3 bg-primary/10 rounded-lg">
+                                <i data-lucide="flask-conical" class="w-6 h-6 text-primary"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-foreground mb-1">pH Sensor</h3>
+                                <p class="text-sm text-muted-foreground">Teyleten Robot DB7</p>
+                            </div>
+                        </div>
+                        <p class="text-muted-foreground mb-4">
+                            Sensor electroquímico de pH que mide la acidez o alcalinidad del agua. El pH es un parámetro crítico para determinar la potabilidad y seguridad del agua.
+                        </p>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between py-2 border-b border-border">
+                                <span class="text-sm font-medium text-foreground">Rango de Medición</span>
+                                <span class="text-sm text-muted-foreground font-mono">0 pH a 14 pH</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-border">
+                                <span class="text-sm font-medium text-foreground">Precisión</span>
+                                <span class="text-sm text-muted-foreground">±0.1 pH</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-border">
+                                <span class="text-sm font-medium text-foreground">Voltaje de Operación</span>
+                                <span class="text-sm text-muted-foreground font-mono">5V DC</span>
+                            </div>
+                            <div class="flex items-center justify-between py-2">
+                                <span class="text-sm font-medium text-foreground">Tiempo de Respuesta</span>
+                                <span class="text-sm text-muted-foreground">&lt; 1 minuto</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Llamado a la acción -->
+                <div class="mt-16 text-center">
+                    <div class="bg-card border border-border rounded-lg p-8">
+                        <h3 class="text-2xl font-bold text-foreground mb-4">
+                            Ver Demo en Vivo del Sistema
+                        </h3>
+                        <p class="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                            Abre el dashboard para visualizar lecturas actuales, historial y estado del agua con actualización en tiempo real.
+                        </p>
+                        <a href="index.html?dashboard=1" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg text-base font-medium hover:bg-primary/90 transition-colors shadow-lg shadow-primary/25">
+                            <i data-lucide="gauge" class="w-5 h-5"></i>
+                            Abrir Demo en Vivo
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="border-t border-border bg-card py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="droplet" class="w-6 h-6 text-primary"></i>
+                        <div>
+                            <p class="text-sm font-semibold text-foreground">HydroLabs Plataforma de Monitoreo</p>
+                            <p class="text-xs text-muted-foreground">Tecnología IoT para agua segura</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <a href="landing.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Inicio</a>
+                        <a href="components.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Componentes</a>
+                        <a href="index.html?dashboard=1" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Dashboard</a>
+                    </div>
+                </div>
+                <div class="mt-6 pt-6 border-t border-border text-center">
+                    <p class="text-xs text-muted-foreground">
+                        © 2026 HydroLabs. Todos los derechos reservados.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Inicializar íconos de Lucide -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+

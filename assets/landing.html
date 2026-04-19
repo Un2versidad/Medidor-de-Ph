@@ -1,0 +1,988 @@
+<!--
+    HydroLabs
+    Landing Page — Plataforma de Monitoreo Hídrico
+-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HydroLabs: monitoreo de calidad del agua en tiempo real para piscinas, granjas, pozos y tanques (pH, turbidez y TDS).">
+    <title>HydroLabs | Plataforma de Monitoreo de Calidad del Agua</title>
+    <link rel="icon" type="image/svg+xml" href="img/favicon-hydrolabs.svg">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+    <link rel="alternate icon" type="image/png" href="img/favicon.png">
+    <link rel="apple-touch-icon" href="img/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                colors: {
+                    border: 'hsl(var(--border))',
+                    input: 'hsl(var(--input))',
+                    ring: 'hsl(var(--ring))',
+                    background: 'hsl(var(--background))',
+                    foreground: 'hsl(var(--foreground))',
+                    primary: { DEFAULT: 'hsl(var(--primary))', foreground: 'hsl(var(--primary-foreground))' },
+                    secondary: { DEFAULT: 'hsl(var(--secondary))', foreground: 'hsl(var(--secondary-foreground))' },
+                    muted: { DEFAULT: 'hsl(var(--muted))', foreground: 'hsl(var(--muted-foreground))' },
+                    accent: { DEFAULT: 'hsl(var(--accent))', foreground: 'hsl(var(--accent-foreground))' },
+                    card: { DEFAULT: 'hsl(var(--card))', foreground: 'hsl(var(--card-foreground))' },
+                },
+                borderRadius: {
+                    lg: 'var(--radius)',
+                    md: 'calc(var(--radius) - 2px)',
+                    sm: 'calc(var(--radius) - 4px)',
+                },
+                fontFamily: {
+                    sans: ['"Open Sans"', 'system-ui', 'sans-serif'],
+                    mono: ['"Roboto Mono"', '"Courier New"', 'monospace'],
+                },
+            },
+        },
+    };
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/theme.js"></script>
+</head>
+<body class="min-h-screen bg-background text-foreground font-sans">
+    <!-- Encabezado -->
+    <header class="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="droplet" class="w-8 h-8 text-primary"></i>
+                    <div>
+                        <h1 class="text-lg font-bold text-foreground">HydroLabs</h1>
+                        <p class="text-xs text-muted-foreground hidden sm:block">Plataforma IoT de Monitoreo Hídrico</p>
+                    </div>
+                </div>
+                <nav class="flex items-center gap-2 sm:gap-4">
+                    <a href="landing.html" class="text-sm font-medium text-primary hover:text-primary/80 transition-colors">
+                        Inicio
+                    </a>
+                    <a href="components.html" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                        Componentes
+                    </a>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+                        <i id="theme-icon-sun" data-lucide="sun" class="w-5 h-5"></i>
+                        <i id="theme-icon-moon" data-lucide="moon" class="w-5 h-5 hidden"></i>
+                    </button>
+                    <a href="index.html?dashboard=1" class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 transition-colors">
+                        <i data-lucide="gauge" class="w-4 h-4"></i>
+                        <span class="hidden sm:inline">Dashboard</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main>
+        <!-- Sección principal - AIDA: Atención -->
+        <section class="relative py-16 sm:py-20 lg:py-28 overflow-hidden">
+            <!-- Decoración de fondo -->
+            <div class="absolute inset-0 -z-10">
+                <div class="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
+            </div>
+            
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-5xl mx-auto text-center">
+                    <!-- Insignia de confianza -->
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 rounded-full text-sm font-semibold mb-6">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        <span>Operación en campo para 8 provincias de Panamá</span>
+                    </div>
+                    
+                    <!-- Titular principal - Problema + Solución -->
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-6 leading-tight">
+                        Controla la Calidad del Agua Antes de que
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-teal-600">Se Convierta en un Problema</span>
+                    </h1>
+                    
+                    <!-- Propuesta de valor -->
+                    <p class="text-base sm:text-lg text-muted-foreground mb-4 max-w-3xl mx-auto leading-relaxed">
+                        Monitorea pH, turbidez y TDS en tiempo real para tomar decisiones rápidas en <span class="font-bold text-foreground">piscinas, granjas, pozos y tanques</span>.
+                    </p>
+                    
+                    <!-- Prueba social -->
+                    <div class="flex items-center justify-center gap-6 mb-8 text-sm text-muted-foreground">
+                        <div class="flex items-center gap-2">
+                            <div class="flex -space-x-2">
+                                <div class="w-8 h-8 rounded-full bg-primary/20 border-2 border-background flex items-center justify-center text-xs font-bold">4</div>
+                                <div class="w-8 h-8 rounded-full bg-accent/20 border-2 border-background flex items-center justify-center text-xs font-bold">+</div>
+                            </div>
+                            <span><strong class="text-foreground">8 provincias</strong> monitoreadas</span>
+                        </div>
+                        <div class="hidden sm:block w-px h-6 bg-border"></div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="clock" class="w-4 h-4 text-primary"></i>
+                            <span><strong class="text-foreground">24/7</strong> en tiempo real</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Botones de CTA -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                        <a href="index.html?dashboard=1" class="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-xl text-lg font-bold hover:bg-primary/90 transition-all shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 hover:scale-105">
+                            <i data-lucide="gauge" class="w-5 h-5"></i>
+                            Ver Demo en Vivo
+                            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="components.html" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-card text-foreground border-2 border-border rounded-xl text-lg font-semibold hover:bg-accent hover:border-primary transition-all">
+                            <i data-lucide="cpu" class="w-5 h-5"></i>
+                            Explorar Componentes
+                        </a>
+                    </div>
+                    
+                    <!-- Urgencia/Escasez -->
+                    <p class="text-sm text-muted-foreground">
+                        <i data-lucide="map-pin" class="w-4 h-4 inline"></i>
+                        Cobertura activa en Chiriquí, Coclé, Panamá Oeste, Colón, Panamá Este, Panamá, Darién y Panamá Norte (Chilibre)
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de problema/puntos de dolor - AIDA: Interés -->
+        <section class="py-12 sm:py-16 lg:py-20 bg-muted/30">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                            ¿Por Qué Necesitas Monitoreo Continuo?
+                        </h2>
+                        <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                            Sin monitoreo continuo, las decisiones se toman tarde y aumentan los costos por corrección, limpieza y paradas operativas.
+                        </p>
+                    </div>
+
+                    <!-- Cuadrícula de puntos de dolor -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                        <div class="bg-card border-2 border-red-200 dark:border-red-900 rounded-xl p-6 text-center">
+                            <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="alert-triangle" class="w-8 h-8 text-red-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-foreground mb-2">Sin Detección Temprana</h3>
+                            <p class="text-muted-foreground">
+                                Los problemas se descubren cuando ya hay personas enfermas
+                            </p>
+                        </div>
+                        
+                        <div class="bg-card border-2 border-orange-200 dark:border-orange-900 rounded-xl p-6 text-center">
+                            <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="clock-alert" class="w-8 h-8 text-orange-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-foreground mb-2">Análisis Lentos</h3>
+                            <p class="text-muted-foreground">
+                                Laboratorios tardan días en entregar resultados críticos
+                            </p>
+                        </div>
+                        
+                        <div class="bg-card border-2 border-yellow-200 dark:border-yellow-900 rounded-xl p-6 text-center">
+                            <div class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="dollar-sign" class="w-8 h-8 text-yellow-600"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-foreground mb-2">Costos Elevados</h3>
+                            <p class="text-muted-foreground">
+                                Tratamientos médicos y análisis de laboratorio son costosos
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de solución/beneficios - AIDA: Deseo -->
+        <section class="py-12 sm:py-16 lg:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-4">
+                            <i data-lucide="zap" class="w-4 h-4"></i>
+                            <span>La Solución Definitiva</span>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                            Monitoreo Inteligente que Salva Vidas
+                        </h2>
+                        <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                            Tecnología IoT de última generación que detecta problemas antes de que afecten a tu comunidad
+                        </p>
+                    </div>
+
+                    <!-- Beneficios con íconos y cifras -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                        <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 rounded-xl p-6 hover:shadow-xl transition-all hover:scale-105">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-green-600 dark:text-green-400 mb-1">&lt;2s</div>
+                                    <h4 class="text-lg font-semibold text-foreground">Detección Instantánea</h4>
+                                </div>
+                            </div>
+                            <p class="text-muted-foreground">
+                                Alertas en tiempo real cuando se detectan valores peligrosos
+                            </p>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 hover:shadow-xl transition-all hover:scale-105">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="clipboard-check" class="w-6 h-6 text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">1 Clic</div>
+                                    <h4 class="text-lg font-semibold text-foreground">Guardado Intencional</h4>
+                                </div>
+                            </div>
+                            <p class="text-muted-foreground">
+                                La lectura se visualiza para calibración y solo se guarda cuando presionas Tomar Lectura.
+                            </p>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border border-purple-200 dark:border-purple-800 rounded-xl p-6 hover:shadow-xl transition-all hover:scale-105">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="shield-check" class="w-6 h-6 text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-1">24/7</div>
+                                    <h4 class="text-lg font-semibold text-foreground">Protección Continua</h4>
+                                </div>
+                            </div>
+                            <p class="text-muted-foreground">
+                                Monitoreo ininterrumpido sin intervención humana
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de visión general del sistema -->
+        <section id="demo" class="py-12 sm:py-16 lg:py-20 bg-muted/30">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h3 class="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                            Operación en Sitio, Paso a Paso
+                        </h3>
+                        <p class="text-lg text-muted-foreground max-w-3xl mx-auto">
+                            El sistema muestra lecturas continuas para calibración en LCD y web, y registra solo los datos confirmados para evitar ruido en tus reportes.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                        <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                                <i data-lucide="activity" class="w-6 h-6 text-primary"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold text-foreground mb-2">Vista Continua</h4>
+                            <p class="text-muted-foreground">
+                                Visualiza pH, NTU y TDS todo el tiempo para ajustar la sonda antes de guardar.
+                            </p>
+                        </div>
+
+                        <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                                <i data-lucide="timer" class="w-6 h-6 text-primary"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold text-foreground mb-2">Calibración Guiada</h4>
+                            <p class="text-muted-foreground">
+                                Un temporizador evita guardar lecturas inestables inmediatamente después de cambiar de ubicación.
+                            </p>
+                        </div>
+
+                        <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                                <i data-lucide="database" class="w-6 h-6 text-primary"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold text-foreground mb-2">Supabase + Respaldo</h4>
+                            <p class="text-muted-foreground">
+                                Envío principal a Supabase con cola local de respaldo cuando hay cortes de red.
+                            </p>
+                        </div>
+
+                        <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                                <i data-lucide="mail-check" class="w-6 h-6 text-primary"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold text-foreground mb-2">Alertas y Reportes</h4>
+                            <p class="text-muted-foreground">
+                                Envía reportes PDF por correo y responde más rápido ante condiciones no aptas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-card border border-border rounded-lg p-8 mb-8">
+                        <h4 class="text-2xl font-bold text-foreground mb-6 text-center">Parámetros Monitoreados</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div class="text-center p-4 bg-muted/50 rounded-lg">
+                                <i data-lucide="beaker" class="w-8 h-8 text-primary mx-auto mb-2"></i>
+                                <p class="text-sm font-medium text-foreground">pH</p>
+                                <p class="text-xs text-muted-foreground">0-14</p>
+                            </div>
+                            <div class="text-center p-4 bg-muted/50 rounded-lg">
+                                <i data-lucide="eye" class="w-8 h-8 text-primary mx-auto mb-2"></i>
+                                <p class="text-sm font-medium text-foreground">Turbidez</p>
+                                <p class="text-xs text-muted-foreground">NTU</p>
+                            </div>
+                            <div class="text-center p-4 bg-muted/50 rounded-lg">
+                                <i data-lucide="flask-conical" class="w-8 h-8 text-primary mx-auto mb-2"></i>
+                                <p class="text-sm font-medium text-foreground">TDS</p>
+                                <p class="text-xs text-muted-foreground">PPM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-card border border-border rounded-lg p-4">
+                            <p class="text-sm font-semibold text-foreground">Piscinas</p>
+                            <p class="text-xs text-muted-foreground">Control operativo diario de pH y turbidez.</p>
+                        </div>
+                        <div class="bg-card border border-border rounded-lg p-4">
+                            <p class="text-sm font-semibold text-foreground">Granjas</p>
+                            <p class="text-xs text-muted-foreground">Seguimiento del agua para animales y procesos.</p>
+                        </div>
+                        <div class="bg-card border border-border rounded-lg p-4">
+                            <p class="text-sm font-semibold text-foreground">Pozos</p>
+                            <p class="text-xs text-muted-foreground">Detección temprana de cambios de calidad.</p>
+                        </div>
+                        <div class="bg-card border border-border rounded-lg p-4">
+                            <p class="text-sm font-semibold text-foreground">Tanques</p>
+                            <p class="text-xs text-muted-foreground">Registro confiable para auditoría y mantenimiento.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de componentes -->
+        <section id="components" class="py-12 sm:py-16 lg:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h3 class="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                            Componentes del Sistema
+                        </h3>
+                        <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                            Sensores de alta precisión para medición confiable de parámetros de calidad del agua.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Control de hardware -->
+                        <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="cpu" class="w-6 h-6 text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-foreground mb-1">Arduino UNO Q + Bridge</h4>
+                                    <p class="text-sm text-muted-foreground">Control local con LED Matrix integrado, LCD y LED de estado</p>
+                                </div>
+                            </div>
+                            <p class="text-muted-foreground mb-4">
+                                Núcleo de control del sistema para captura en sitio, visualización de estado y comunicación con dashboard y backend.
+                            </p>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 text-sm">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i>
+                                    <span class="text-foreground">Ejecución de lectura por comando (Tomar Lectura)</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i>
+                                    <span class="text-foreground">Vista previa continua para calibración</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i>
+                                    <span class="text-foreground">Indicadores visuales con LED Matrix integrado, LCD y LED de estado</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Medidor TDS -->
+                        <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="flask-conical" class="w-6 h-6 text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-foreground mb-1">TDS Meter</h4>
+                                    <p class="text-sm text-muted-foreground">Keyestudio TDS Sensor</p>
+                                </div>
+                            </div>
+                            <p class="text-muted-foreground mb-4">
+                                Medidor de sólidos disueltos totales (TDS) para evaluar la pureza del agua. Mide la concentración de partículas disueltas en PPM.
+                            </p>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 text-sm">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i>
+                                    <span class="text-foreground">Rango: 0 - 1000 PPM</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i>
+                                    <span class="text-foreground">Precisión: ±10% F.S.</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i>
+                                    <span class="text-foreground">Voltaje: 3.3V - 5.5V</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sensor de turbidez -->
+                        <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="eye" class="w-6 h-6 text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-foreground mb-1">Turbidity Sensor</h4>
+                                    <p class="text-sm text-muted-foreground">Sensor de Turbidez</p>
+                                </div>
+                            </div>
+                            <p class="text-muted-foreground mb-4">
+                                Sensor óptico para medir la claridad del agua detectando partículas suspendidas. Medición en unidades NTU (Nephelometric Turbidity Units).
+                            </p>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 text-sm">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i>
+                                    <span class="text-foreground">Rango: 0 - 1000 NTU</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i>
+                                    <span class="text-foreground">Respuesta: < 500ms</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i>
+                                    <span class="text-foreground">Salida: Analógica 0-4.5V</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sensor de pH -->
+                        <div class="bg-card border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="beaker" class="w-6 h-6 text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-semibold text-foreground mb-1">pH Sensor</h4>
+                                    <p class="text-sm text-muted-foreground">Teyleten Robot DB7</p>
+                                </div>
+                            </div>
+                            <p class="text-muted-foreground mb-4">
+                                Sensor de pH de alta precisión para medir la acidez o alcalinidad del agua. Esencial para evaluar la potabilidad del agua.
+                            </p>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 text-sm">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i>
+                                    <span class="text-foreground">Rango: 0 - 14 pH</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i>
+                                    <span class="text-foreground">Precisión: ±0.1 pH</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-primary"></i>
+                                    <span class="text-foreground">Calibración periódica para lectura estable</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección educativa - Parámetros de calidad del agua -->
+        <section class="py-12 sm:py-16 lg:py-20 bg-muted/30">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 bg-accent/50 text-accent-foreground rounded-full text-sm font-medium mb-4">
+                            <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                            <span>Guía Educativa</span>
+                        </div>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                            Entendiendo los Parámetros de Calidad del Agua
+                        </h3>
+                        <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+                            Aprende qué significa cada medición y por qué es importante para la salud y seguridad del agua.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Explicación del pH -->
+                        <div class="bg-card border-2 border-primary/20 rounded-xl p-6 sm:p-8 hover:shadow-lg transition-shadow">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                                    <i data-lucide="beaker" class="w-7 h-7 text-white"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-2xl font-bold text-foreground mb-2">pH (Potencial de Hidrógeno)</h4>
+                                    <p class="text-sm text-primary font-semibold">Escala: 0 - 14 | Rango Seguro: 6.5 - 8.5</p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="bg-muted/50 rounded-lg p-4">
+                                    <h5 class="font-semibold text-foreground mb-2 flex items-center gap-2">
+                                        <i data-lucide="info" class="w-4 h-4 text-primary"></i>
+                                        ¿Qué es el pH?
+                                    </h5>
+                                    <p class="text-muted-foreground leading-relaxed">
+                                        El pH mide la acidez o alcalinidad del agua en una escala de 0 a 14. Un pH de 7 es neutro, 
+                                        valores menores a 7 indican acidez, y valores mayores a 7 indican alcalinidad. El agua potable 
+                                        debe tener un pH entre 6.5 y 8.5 según estándares de la OMS.
+                                    </p>
+                                </div>
+
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div class="bg-red-50 border border-red-200 rounded-lg p-5">
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <div class="h-8 min-w-[2rem] px-2 bg-red-500 rounded-full inline-flex items-center justify-center text-white font-bold text-[11px] leading-none whitespace-nowrap flex-shrink-0">
+                                                &lt;6.5
+                                            </div>
+                                            <h6 class="font-semibold text-red-900">Ácido</h6>
+                                        </div>
+                                        <p class="text-sm text-red-800 leading-relaxed">
+                                            Agua ácida puede corroer tuberías y liberar metales pesados. Puede causar irritación 
+                                            y problemas gastrointestinales.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-green-50 border border-green-200 rounded-lg p-5">
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <div class="h-8 min-w-[2rem] px-2 bg-green-500 rounded-full inline-flex items-center justify-center text-white font-bold text-[11px] leading-none whitespace-nowrap flex-shrink-0">
+                                                6.5-8.5
+                                            </div>
+                                            <h6 class="font-semibold text-green-900">Seguro</h6>
+                                        </div>
+                                        <p class="text-sm text-green-800 leading-relaxed">
+                                            Rango óptimo para consumo humano. El agua es segura, no corrosiva y mantiene el 
+                                            equilibrio químico adecuado.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-5">
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <div class="h-8 min-w-[2rem] px-2 bg-yellow-500 rounded-full inline-flex items-center justify-center text-white font-bold text-[11px] leading-none whitespace-nowrap flex-shrink-0">
+                                                &gt;8.5
+                                            </div>
+                                            <h6 class="font-semibold text-yellow-900">Alcalino</h6>
+                                        </div>
+                                        <p class="text-sm text-yellow-800 leading-relaxed">
+                                            Agua alcalina puede tener sabor amargo y causar incrustaciones en tuberías. 
+                                            Puede afectar la eficacia del cloro desinfectante.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-5">
+                                    <h6 class="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                                        <i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Dato Importante</span>
+                                    </h6>
+                                    <p class="text-sm text-blue-800 leading-relaxed">
+                                        El pH afecta la solubilidad de metales y la efectividad de desinfectantes. Un pH inadecuado 
+                                        puede hacer que el agua sea corrosiva o incrustante, afectando la infraestructura y la salud.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Explicación de turbidez -->
+                        <div class="bg-card border-2 border-primary/20 rounded-xl p-6 sm:p-8 hover:shadow-lg transition-shadow">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-14 h-14 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                                    <i data-lucide="eye" class="w-7 h-7 text-white"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-2xl font-bold text-foreground mb-2">Turbidez (NTU)</h4>
+                                    <p class="text-sm text-primary font-semibold">Unidad: NTU | Rango Seguro: &lt; 1 NTU | Tolerable: &lt; 5 NTU</p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-4">
+                                <div class="bg-muted/50 rounded-lg p-4">
+                                    <h5 class="font-semibold text-foreground mb-2 flex items-center gap-2">
+                                        <i data-lucide="info" class="w-4 h-4 text-primary"></i>
+                                        ¿Qué es la Turbidez?
+                                    </h5>
+                                    <p class="text-muted-foreground leading-relaxed">
+                                        La turbidez mide la claridad del agua detectando partículas suspendidas como sedimentos, 
+                                        microorganismos, y materia orgánica. Se mide en NTU (Nephelometric Turbidity Units). 
+                                        Agua turbia puede albergar patógenos y reducir la efectividad de la desinfección.
+                                    </p>
+                                </div>
+
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <div class="h-8 min-w-[2rem] px-2 bg-green-500 rounded-full inline-flex items-center justify-center text-white font-bold text-[11px] leading-none whitespace-nowrap flex-shrink-0">
+                                                &lt;1
+                                            </div>
+                                            <h6 class="font-semibold text-green-900">Excelente</h6>
+                                        </div>
+                                        <p class="text-sm text-green-800">
+                                            Agua cristalina y segura. Ideal para consumo humano. La desinfección es efectiva 
+                                            y no hay riesgo de patógenos protegidos por partículas.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <div class="h-8 min-w-[2rem] px-2 bg-yellow-500 rounded-full inline-flex items-center justify-center text-white font-bold text-[11px] leading-none whitespace-nowrap flex-shrink-0">
+                                                1-5
+                                            </div>
+                                            <h6 class="font-semibold text-yellow-900">Tolerable</h6>
+                                        </div>
+                                        <p class="text-sm text-yellow-800">
+                                            Agua ligeramente turbia. Aceptable pero requiere tratamiento adicional. 
+                                            Puede reducir la efectividad del cloro.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <div class="h-8 min-w-[2rem] px-2 bg-red-500 rounded-full inline-flex items-center justify-center text-white font-bold text-[11px] leading-none whitespace-nowrap flex-shrink-0">
+                                                &gt;5
+                                            </div>
+                                            <h6 class="font-semibold text-red-900">Peligroso</h6>
+                                        </div>
+                                        <p class="text-sm text-red-800">
+                                            Agua turbia no apta para consumo. Alta probabilidad de contaminación microbiana. 
+                                            Requiere filtración y tratamiento inmediato.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-amber-50 border border-amber-200 rounded-lg p-5">
+                                    <h6 class="font-semibold text-amber-900 mb-3 flex items-center gap-2">
+                                        <i data-lucide="alert-triangle" class="w-4 h-4 flex-shrink-0"></i>
+                                        <span>Riesgos de Alta Turbidez</span>
+                                    </h6>
+                                    <ul class="text-sm text-amber-800 space-y-2 ml-4 list-disc leading-relaxed">
+                                        <li>Protege microorganismos patógenos de la desinfección</li>
+                                        <li>Puede contener parásitos como Giardia y Cryptosporidium</li>
+                                        <li>Indica posible contaminación fecal o industrial</li>
+                                        <li>Reduce la penetración de luz UV en tratamiento</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Explicación de TDS -->
+                        <div class="bg-card border-2 border-primary/20 rounded-xl p-6 sm:p-8 hover:shadow-lg transition-shadow">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-14 h-14 bg-gradient-to-br from-violet-500 to-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                                    <i data-lucide="flask-conical" class="w-7 h-7 text-white"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-2xl font-bold text-foreground mb-2">TDS (Sólidos Disueltos Totales)</h4>
+                                    <p class="text-sm text-primary font-semibold">Unidad: ppm | Referencia operativa: &lt; 600 ppm</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div class="bg-muted/50 rounded-lg p-4">
+                                    <h5 class="font-semibold text-foreground mb-2 flex items-center gap-2">
+                                        <i data-lucide="info" class="w-4 h-4 text-primary"></i>
+                                        ¿Qué mide TDS?
+                                    </h5>
+                                    <p class="text-muted-foreground text-sm leading-relaxed">
+                                        El TDS indica la cantidad de minerales, sales y otras sustancias disueltas en el agua. 
+                                        No reemplaza análisis microbiológicos, pero es una señal rápida para detectar cambios de calidad en la fuente.
+                                    </p>
+                                </div>
+
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <div class="h-8 min-w-[2rem] px-2 bg-green-500 rounded-full inline-flex items-center justify-center text-white font-bold text-[11px] leading-none whitespace-nowrap flex-shrink-0">
+                                                &lt;600
+                                            </div>
+                                            <h6 class="font-semibold text-green-900">Estable</h6>
+                                        </div>
+                                        <p class="text-sm text-green-800">
+                                            Nivel operativo saludable para la mayoría de usos de consumo y almacenamiento controlado.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <div class="h-8 min-w-[2rem] px-2 bg-yellow-500 rounded-full inline-flex items-center justify-center text-white font-bold text-[11px] leading-none whitespace-nowrap flex-shrink-0">
+                                                600-900
+                                            </div>
+                                            <h6 class="font-semibold text-yellow-900">En Vigilancia</h6>
+                                        </div>
+                                        <p class="text-sm text-yellow-800">
+                                            Puede afectar sabor o procesos. Requiere seguimiento y revisión de la fuente.
+                                        </p>
+                                    </div>
+
+                                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <div class="h-8 min-w-[2rem] px-2 bg-red-500 rounded-full inline-flex items-center justify-center text-white font-bold text-[11px] leading-none whitespace-nowrap flex-shrink-0">
+                                                &gt;900
+                                            </div>
+                                            <h6 class="font-semibold text-red-900">Crítico</h6>
+                                        </div>
+                                        <p class="text-sm text-red-800">
+                                            Concentración alta de disueltos. Requiere acciones de tratamiento antes de consumo.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Estados de calidad del agua -->
+                        <div class="bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30 rounded-xl p-6 sm:p-8">
+                            <div class="text-center mb-6">
+                                <h4 class="text-2xl font-bold text-foreground mb-2">Estados de Calidad del Agua</h4>
+                                <p class="text-muted-foreground">Clasificación basada en pH, turbidez y TDS</p>
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="bg-card rounded-xl p-5 shadow-sm border-2 border-green-200 dark:border-green-800">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                                            <i data-lucide="check-circle" class="w-6 h-6 text-white"></i>
+                                        </div>
+                                        <h5 class="text-lg font-bold text-green-900 dark:text-green-100">Apta</h5>
+                                    </div>
+                                    <div class="space-y-2 text-sm">
+                                        <p class="text-green-800 dark:text-green-200"><strong>pH:</strong> 6.5 - 8.5</p>
+                                        <p class="text-green-800 dark:text-green-200"><strong>Turbidez:</strong> &lt; 1 NTU</p>
+                                        <p class="text-green-800 dark:text-green-200"><strong>TDS:</strong> &lt; 600 ppm</p>
+                                        <p class="text-green-700 dark:text-green-300 mt-3">
+                                            Agua segura para consumo humano. Cumple con todos los estándares de potabilidad.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-card rounded-xl p-5 shadow-sm border-2 border-yellow-200 dark:border-yellow-800">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center">
+                                            <i data-lucide="alert-circle" class="w-6 h-6 text-white"></i>
+                                        </div>
+                                        <h5 class="text-lg font-bold text-yellow-900 dark:text-yellow-100">Tolerable</h5>
+                                    </div>
+                                    <div class="space-y-2 text-sm">
+                                        <p class="text-yellow-800 dark:text-yellow-200"><strong>pH:</strong> 6.0 - 9.0</p>
+                                        <p class="text-yellow-800 dark:text-yellow-200"><strong>Turbidez:</strong> 1 - 5 NTU</p>
+                                        <p class="text-yellow-800 dark:text-yellow-200"><strong>TDS:</strong> 600 - 900 ppm</p>
+                                        <p class="text-yellow-700 dark:text-yellow-300 mt-3">
+                                            Agua aceptable pero requiere monitoreo. Considerar tratamiento adicional.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-card rounded-xl p-5 shadow-sm border-2 border-red-200 dark:border-red-800">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <div class="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
+                                            <i data-lucide="x-circle" class="w-6 h-6 text-white"></i>
+                                        </div>
+                                        <h5 class="text-lg font-bold text-red-900 dark:text-red-100">No Apta</h5>
+                                    </div>
+                                    <div class="space-y-2 text-sm">
+                                        <p class="text-red-800 dark:text-red-200"><strong>pH:</strong> &lt; 6.0 o &gt; 9.0</p>
+                                        <p class="text-red-800 dark:text-red-200"><strong>Turbidez:</strong> &gt; 5 NTU</p>
+                                        <p class="text-red-800 dark:text-red-200"><strong>TDS:</strong> &gt; 900 ppm</p>
+                                        <p class="text-red-700 dark:text-red-300 mt-3">
+                                            Agua no segura para consumo. Requiere tratamiento inmediato antes de uso.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de testimonios/prueba social -->
+        <section class="py-12 sm:py-16 lg:py-20 bg-muted/30">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                            Resultados Comprobados
+                        </h2>
+                        <p class="text-lg text-muted-foreground">
+                            Comunidades que confían en nuestro sistema
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Testimonio 1 -->
+                        <div class="bg-card border border-border rounded-xl p-6">
+                            <div class="flex items-center gap-1 mb-4">
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            </div>
+                            <p class="text-muted-foreground mb-4 italic">
+                                "Detectamos contaminación en menos de 1 hora y evitamos un brote de enfermedades. El sistema se pagó solo en el primer mes."
+                            </p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">
+                                    MC
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-foreground">María Castillo</p>
+                                    <p class="text-sm text-muted-foreground">Directora de Salud Pública</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonio 2 -->
+                        <div class="bg-card border border-border rounded-xl p-6">
+                            <div class="flex items-center gap-1 mb-4">
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            </div>
+                            <p class="text-muted-foreground mb-4 italic">
+                                "La instalación fue rápida y el dashboard es muy intuitivo. Ahora tenemos datos precisos 24/7 sin depender de laboratorios."
+                            </p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">
+                                    JR
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-foreground">Jorge Ramírez</p>
+                                    <p class="text-sm text-muted-foreground">Ingeniero Ambiental</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonio 3 -->
+                        <div class="bg-card border border-border rounded-xl p-6">
+                            <div class="flex items-center gap-1 mb-4">
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                                <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            </div>
+                            <p class="text-muted-foreground mb-4 italic">
+                                "Excelente inversión. Los reportes automáticos nos ahorran horas de trabajo y las alertas nos dan tranquilidad."
+                            </p>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">
+                                    AS
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-foreground">Ana Sánchez</p>
+                                    <p class="text-sm text-muted-foreground">Coordinadora Municipal</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de garantía -->
+        <section class="py-12 sm:py-16 lg:py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-gradient-to-br from-primary/10 to-teal-500/10 border-2 border-primary/30 rounded-2xl p-8 md:p-12 text-center">
+                        <div class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i data-lucide="shield-check" class="w-10 h-10 text-primary-foreground"></i>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                            Garantía de Satisfacción 100%
+                        </h2>
+                        <p class="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
+                            Si en los primeros 30 días no detectas ningún problema de calidad del agua o no estás satisfecho con el sistema, 
+                            te devolvemos tu inversión completa. Sin preguntas.
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-6 text-sm">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                                <span class="text-foreground font-medium">30 días de garantía</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                                <span class="text-foreground font-medium">Soporte técnico incluido</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                                <span class="text-foreground font-medium">Actualizaciones gratuitas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de CTA - AIDA: Acción -->
+        <section class="py-12 sm:py-16 lg:py-20 bg-primary/5">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h3 class="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                        Comienza a Proteger tu Comunidad Hoy
+                    </h3>
+                    <p class="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+                        Únete a las comunidades que ya están previniendo enfermedades con monitoreo inteligente
+                    </p>
+                    <a href="index.html?dashboard=1" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground rounded-xl text-lg font-bold hover:bg-primary/90 transition-all shadow-xl shadow-primary/30 hover:shadow-2xl hover:scale-105">
+                        <i data-lucide="gauge" class="w-5 h-5"></i>
+                        Abrir Demo en Vivo Ahora
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                    <p class="text-sm text-muted-foreground mt-4">
+                        ✓ Sin tarjeta de crédito requerida · ✓ Acceso inmediato · ✓ Soporte 24/7
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Pie de página -->
+    <footer class="border-t border-border bg-card py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="droplet" class="w-6 h-6 text-primary"></i>
+                        <div>
+                            <p class="text-sm font-semibold text-foreground">HydroLabs Plataforma de Monitoreo</p>
+                            <p class="text-xs text-muted-foreground">Tecnología IoT para agua segura</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <a href="landing.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Inicio</a>
+                        <a href="components.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Componentes</a>
+                        <a href="index.html?dashboard=1" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Dashboard</a>
+                    </div>
+                </div>
+                <div class="mt-6 pt-6 border-t border-border text-center">
+                    <p class="text-xs text-muted-foreground">
+                        © 2026 HydroLabs. Todos los derechos reservados.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Inicializar íconos de Lucide -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
+
+

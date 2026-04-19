@@ -1,0 +1,16 @@
+name: HydroLabs - Red de Monitoreo de Potabilidad del Agua
+description: >
+  Dashboard de monitoreo de calidad del agua en tiempo real para Panamá.
+  Lee pH (A0), TDS (A1) y Turbidez (A2) del Arduino UNO Q. El operador selecciona una
+  ubicación (Panamá Ciudad, Colón, Penonomé, La Chorrera) y presiona
+  "Tomar Lectura" para guardar la muestra. Los datos se visualizan en un
+  mapa interactivo de calor (Leaflet.js) con marcadores Verde/Amarillo/Rojo
+  según umbrales OMS/IDAAN. Incluye alertas automáticas por Discord Webhook y correo via Resend.
+ports: []
+bricks:
+- arduino:dbstorage_tsstore: {}
+- arduino:dbstorage_sqlstore: {}
+- arduino:web_ui: {}
+- arduino:telegram_bot: {}
+icon: 💧
+
