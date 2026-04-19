@@ -4,7 +4,6 @@
  
  # HydroLabs - Dashboard de Monitoreo de Calidad de Agua
 
-![Estado](https://img.shields.io/badge/estado-activo-0f766e?style=for-the-badge)
 ![Sensores](https://img.shields.io/badge/sensores-pH%20%7C%20NTU%20%7C%20TDS-0ea5e9?style=for-the-badge)
 ![Stack](https://img.shields.io/badge/stack-Arduino%20UNO%20Q%20%2B%20Python%20%2B%20WebUI-1d4ed8?style=for-the-badge)
 ![DB](https://img.shields.io/badge/base%20de%20datos-3FN%20local%20%2B%20Supabase-7c3aed?style=for-the-badge)
