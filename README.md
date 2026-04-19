@@ -401,11 +401,9 @@ dashboard/
     reading_store.py
     alerts.py
     requirements.txt
-    supabase_schema_3fn.sql
+    supabase.sql
   sketch/
     sketch.ino
-  tests/
-    complete-workflow.test.js
   app.yaml
 ```
 
@@ -436,63 +434,6 @@ Dependencias clave:
 - `psutil`
 
 ---
-
-## Pruebas y validacion
-
-### Suite principal
-
-```bash
-node tests/complete-workflow.test.js
-```
-
-Valida:
-
-- navegacion entre paginas
-- integracion chatbot
-- endpoints backend criticos
-- wiring de UI
-- responsive y estructura
-
----
-
-## Solucion de problemas
-
-### El dashboard no abre directo
-
-- Esperado: `assets/index.html` redirige a `landing.html` sin `?dashboard=1`.
-
-### No se guarda la lectura
-
-- Revisa calibracion (`SENSOR_CALIBRATION_S`).
-- Revisa pausa/estado de captura.
-- Revisa `reading_error` en consola.
-- Si 3FN no disponible, revisa `storage_error` en `/runtime_config`.
-
-### No llegan alertas por correo o Discord
-
-- Verifica formato de `RESEND_API_KEY`, `RESEND_FROM`, `ALERT_RECIPIENTS`.
-- Verifica `DISCORD_WEBHOOK_URL` real (no placeholder).
-- Usa `POST /test_notifications` desde UI para prueba controlada.
-
-### No llega prueba por Telegram
-
-- Verifica que el bot esté inicializado (sin errores TLS/token en logs).
-- Escribe `/hello` al bot al menos una vez para registrar tu chat, o define `TELEGRAM_WHITELIST_USER_IDS`.
-- Si pruebas por API, envía `telegram_chat_id` en el body de `/test_notifications` para forzar destino.
-
-### Chatbot no responde
-
-- Verifica `OPENROUTER_API_KEY` en `.env` o clave local desde panel del chatbot.
-- Revisa salida de backend para errores de red/API.
-
-### Telegram falla con CERTIFICATE_VERIFY_FAILED
-
-- Si aparece `certificate verify failed`, define `TELEGRAM_CA_BUNDLE` apuntando a un archivo PEM valido dentro del runtime.
-- Si usas proxy/certificado corporativo, exporta el certificado raiz a PEM y usa esa ruta en `python/.env`.
-- Reinicia la app para que el bot rehaga preflight TLS con el nuevo bundle.
-
----
-
 ## Notas de alcance
 
 Esta version productiva esta centrada en sensores de calidad de agua:
