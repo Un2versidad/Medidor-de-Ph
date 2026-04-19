@@ -1,0 +1,11 @@
+# Credenciales
+python/.env
+
+# Bytecode Python
+__pycache__/
+*.pyc
+
+# Editores
+.vscode/
+.idea/
+*.swp
