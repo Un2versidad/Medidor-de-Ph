@@ -1,4 +1,8 @@
-﻿# HydroLabs - Dashboard de Monitoreo de Calidad de Agua
+<p align="center">
+  <img src="assets/img/favicon-hydrolabs.svg" alt="HydroLabs Logo" width="120"/>
+</p>
+ 
+ # HydroLabs - Dashboard de Monitoreo de Calidad de Agua
 
 ![Estado](https://img.shields.io/badge/estado-activo-0f766e?style=for-the-badge)
 ![Sensores](https://img.shields.io/badge/sensores-pH%20%7C%20NTU%20%7C%20TDS-0ea5e9?style=for-the-badge)
