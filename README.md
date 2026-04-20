@@ -16,16 +16,6 @@ Sistema de monitoreo de calidad de agua en tiempo real para Panama, con enfoque 
 
 Incluye dashboard interactivo, mapa georreferenciado, historicos, exportaciones JSON, generacion de reportes PDF, chatbot con IA, alertas por Discord/Resend y persistencia robusta en base de datos local normalizada (3FN) con sincronizacion opcional a Supabase.
 
-<p align="center">
-  <a href="https://youtu.be/OrZo3yLHClY">
-    <img src="https://img.youtube.com/vi/OrZo3yLHClY/maxresdefault.jpg" alt="HydroLabs Demo Video" width="600"/>
-  </a>
-</p>
-
-<p align="center">
-  ▶️ Click para ver demo del sistema HydroLabs
-</p>
-
 ## Tabla de contenidos
 
 1. [Resumen rapido](#resumen-rapido)
@@ -37,8 +27,6 @@ Incluye dashboard interactivo, mapa georreferenciado, historicos, exportaciones 
 7. [Variables de entorno (.env)](#variables-de-entorno-env)
 8. [Estructura del proyecto](#estructura-del-proyecto)
 9. [Como ejecutar](#como-ejecutar)
-10. [Pruebas y validacion](#pruebas-y-validacion)
-11. [Solucion de problemas](#solucion-de-problemas)
 
 ---
 
@@ -62,6 +50,17 @@ Estados de calidad de agua:
 - `2` -> No apta (rojo)
 
 ---
+
+<p align="center">
+  <a href="https://youtu.be/OrZo3yLHClY">
+    <img src="https://img.youtube.com/vi/OrZo3yLHClY/maxresdefault.jpg" alt="HydroLabs Demo Video" width="600"/>
+  </a>
+</p>
+
+<p align="center">
+  ▶️ Click para ver demo del sistema HydroLabs
+</p>
+
 
 ## Arquitectura general
 
